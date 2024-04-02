@@ -10,6 +10,7 @@
     <img id='france' src='France.JPG'>
     <img id='brazil' src='Brazil.JPG'>
     <img id='china' src='China.JPG'>
+    <div id='dogtext' >uk</div>
   </div>
   <script>
     var ctx=gameCanvas.getContext("2d");
@@ -26,21 +27,28 @@
     ctx.fillText("Score: "+score,10,30);
     for(var n=0; n<3; n++){
       if (n==0){
-      ctx.drawImage(donut,x[0],y[0],80,80);
+      ctx.drawImage(donut,x[0],y[0],100,80);
       }else if (n==1){
-      ctx.drawImage(france,x[1],y[1],80,80);
+      ctx.drawImage(france,x[1],y[1],100,80);
       }else {
-      ctx.drawImage(brazil,x[2],y[2],80,80);
+      ctx.drawImage(china,x[2],y[2],100,80);
       }
       y[n]=y[n]+speed[n];
       checkForHits(n);
-      checkForHits1(n);
-      checkForHits2(n);
+      //checkForHits1(n);
+      //checkForHits2(n);
       if(y[n]>480){
         y[n]=-80; x[n]=Math.random()*600;
       }
     }
-    ctx.drawImage(dog,dogX,400,80,80);
+    if (dogX > 640){
+      dogX=-80;
+    }
+    if (dogX < -80){
+      dogX=640
+    }
+    ctx.fillText("UK",dogX,400);
+   // ctx.drawImage(dogtext,dogX,400,100,80);
     dogX+=changeX;
     }
     document.onkeydown=keyPressed;
@@ -66,40 +74,7 @@
         y[n]=-80; x[n]=Math.random()*600;
       }
     }
-    function checkForHits1(n){
-      if((Math.abs(400-y[0] )<60)&&
-      (Math.abs(dogX-x[0])<60)){
-        score-=1;
-        y[n]=-80; x[n]=Math.random()*600;
-      }
-        if((Math.abs(400-y[1] )<60)&&
-        (Math.abs(dogX-x[1])<60)){
-          score+=2
-        y[n]=-80; x[n]=Math.random()*600;
-      }
-      if((Math.abs(400-y[2] )<60)&&
-        (Math.abs(dogX-x[2])<60)){
-          score-=1
-        y[n]=-80; x[n]=Math.random()*600;
-      }
-    }
-    function checkForHits2(n){
-      if((Math.abs(400-y[0] )<60)&&
-      (Math.abs(dogX-x[0])<60)){
-        score-=1;
-        y[n]=-80; x[n]=Math.random()*600;
-      }
-        if((Math.abs(400-y[1] )<60)&&
-        (Math.abs(dogX-x[1])<60)){
-          score-=1
-        y[n]=-80; x[n]=Math.random()*600;
-      }
-      if((Math.abs(400-y[2] )<60)&&
-        (Math.abs(dogX-x[2])<60)){
-          score+=2
-        y[n]=-80; x[n]=Math.random()*600;
-      }
-    }
+    
     setTimeout(gameOver,60000);
     function gameOver(){
       clearInterval(gameTimer);
