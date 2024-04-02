@@ -10,7 +10,6 @@
     <img id='france' src='France.JPG'>
     <img id='brazil' src='Brazil.JPG'>
     <img id='china' src='China.JPG'>
-    <div id='dogtext' >uk</div>
   </div>
   <script>
     var ctx=gameCanvas.getContext("2d");
@@ -20,50 +19,65 @@
     var dogX=300, changeX=0, score=0;
     //var life=10
     
+    ctx.fillStyle = "blue";
+    ctx.fillRect(0, 0, 9, 9);
+    
+    
     var gameTimer=setInterval(mainLoop,20);
     function mainLoop() {
-    ctx.clearRect(0,0,640,480);
-    ctx.font="30ps Arial";
-    ctx.fillText("Score: "+score,10,30);
-    for(var n=0; n<3; n++){
-      if (n==0){
-      ctx.drawImage(donut,x[0],y[0],100,80);
-      }else if (n==1){
-      ctx.drawImage(france,x[1],y[1],100,80);
-      }else {
-      ctx.drawImage(china,x[2],y[2],100,80);
+
+      ctx.clearRect(0,0,640,480);
+      ctx.font="30ps Arial";
+      ctx.fillText("Score: "+score,10,30);
+      
+      for (var n=0; n<3; n++){
+        if (n==0){
+          ctx.drawImage(donut,x[0],y[0],100,80);
+        } else if (n==1){
+          ctx.drawImage(france,x[1],y[1],100,80);
+        } else {
+          ctx.drawImage(china,x[2],y[2],100,80);
+        }
+        y[n]=y[n]+speed[n];
+        checkForHits(n);
+        //checkForHits1(n);
+        //checkForHits2(n);
+        if(y[n]>480){
+          y[n]=-80; x[n]=Math.random()*600;
+        }
       }
-      y[n]=y[n]+speed[n];
-      checkForHits(n);
-      //checkForHits1(n);
-      //checkForHits2(n);
-      if(y[n]>480){
-        y[n]=-80; x[n]=Math.random()*600;
+      if (dogX > 640){
+        dogX=-80;
       }
+      if (dogX < -80){
+        dogX=640
+      }
+      console.log('dogX',dogX)
+      console.log('changeX',changeX)
+      
+      ctx.fillText("UK",dogX,400);
+      // ctx.drawImage(dogtext,dogX,400,100,80);
+     
+      dogX+=changeX; 
+     
+     
     }
-    if (dogX > 640){
-      dogX=-80;
-    }
-    if (dogX < -80){
-      dogX=640
-    }
-    ctx.fillText("UK",dogX,400);
-   // ctx.drawImage(dogtext,dogX,400,100,80);
-    dogX+=changeX;
-    }
+    
     document.onkeydown=keyPressed;
     function keyPressed(e){
+      console.log('e',e)
       var k=e.keyCode;
       if(k==37){changeX=-4;}
       if(k==39){changeX=4 ;}
     }
+    
     function checkForHits(n){
       if((Math.abs(400-y[0] )<60)&&
       (Math.abs(dogX-x[0])<60)){
         score+=2;
         y[n]=-80; x[n]=Math.random()*600;
       }
-        if((Math.abs(400-y[1] )<60)&&
+      if((Math.abs(400-y[1] )<60)&&
         (Math.abs(dogX-x[1])<60)){
           score-=1
         y[n]=-80; x[n]=Math.random()*600;
@@ -76,6 +90,7 @@
     }
     
     setTimeout(gameOver,60000);
+    
     function gameOver(){
       clearInterval(gameTimer);
       ctx.font="80ps Arial";
