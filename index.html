@@ -19,15 +19,14 @@
     var dogX=300, changeX=0, score=0;
     //var life=10
     
-    ctx.fillStyle = "blue";
-    ctx.fillRect(0, 0, 9, 9);
+
     
     
     var gameTimer=setInterval(mainLoop,20);
     function mainLoop() {
 
       ctx.clearRect(0,0,640,480);
-      ctx.font="30ps Arial";
+ ctx.fillStyle = "black";
       ctx.fillText("Score: "+score,10,30);
       
       for (var n=0; n<3; n++){
@@ -55,9 +54,14 @@
       console.log('dogX',dogX)
       console.log('changeX',changeX)
       
-      ctx.fillText("UK",dogX,400);
-      // ctx.drawImage(dogtext,dogX,400,100,80);
-     
+      
+         
+        ctx.fillStyle = "blue";
+        ctx.fillRect(dogX, 380, 60, 40);
+        ctx.fillStyle = "black";
+        ctx.font="30ps Arial";
+        ctx.fillText("UK", dogX, 400);
+        // ctx.drawImage(dogtext,dogX,400,100,80);
       dogX+=changeX; 
      
      
@@ -70,6 +74,8 @@
       if(k==37){changeX=-4;}
       if(k==39){changeX=4 ;}
     }
+    
+
     
     function checkForHits(n){
       if((Math.abs(400-y[0] )<60)&&
