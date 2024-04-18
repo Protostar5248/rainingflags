@@ -10,6 +10,7 @@
     <img id='france' src='France.JPG'>
     <img id='brazil' src='Brazil.JPG'>
     <img id='china' src='China.JPG'>
+    <img id='canada' src='Canada.png'>
   </div>
   <script>
     var ctx=gameCanvas.getContext("2d");
@@ -50,7 +51,7 @@
         } else if (n==1){
           ctx.drawImage(france,x[1],y[1],100,80);
         } else {
-          ctx.drawImage(china,x[2],y[2],100,80);
+          ctx.drawImage(canada,x[2],y[2],100,80);
         }
         y[n]=y[n]+speed[n];
         checkForHits(n);
