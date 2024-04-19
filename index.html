@@ -5,7 +5,7 @@
     <canvas id="gameCanvas" width="640" height="480"></canvas>
   </div>
   <div style='display:none;'>
-   <img id='dog' src='uk.jpg'>
+    <img id='dog' src='uk.jpg'>
     <img id='donut' src='Uk.JPG'>
     <img id='france' src='France.JPG'>
     <img id='brazil' src='Brazil.JPG'>
@@ -18,12 +18,8 @@
     var y=[0,0,0];
     var speed=[2,1,3];
     var targetCountryName='UK'
-    
     var targetCountryNameLength = targetCountryName.length;
-    
     console.log("length", targetCountryNameLength)
-    
-
     var centreX = gameCanvas.width / 2;
     var rectWidth = 60;
     var rectX = centreX - rectWidth / 2;
@@ -35,14 +31,14 @@
     //var life=10
     
 
-    
-    
     var gameTimer=setInterval(mainLoop,20);
+
+
     function mainLoop() {
 
       ctx.clearRect(0,0,640,480);
       ctx.font='30px Arial'
- ctx.fillStyle = "black";
+      ctx.fillStyle = "black";
       ctx.fillText("Score: "+score,10,30);
       
       for (var n=0; n<3; n++){
@@ -55,8 +51,7 @@
         }
         y[n]=y[n]+speed[n];
         checkForHits(n);
-        //checkForHits1(n);
-        //checkForHits2(n);
+        
         if(y[n]>480){
           y[n]=-80; x[n]=Math.random()*600;
         }
@@ -67,31 +62,18 @@
       if (dogX < -80){
         dogX=640
       }
-     // console.log('dogX',dogX)
-     // console.log('changeX',changeX)
-      
-      
-         
-        ctx.fillStyle = "blue";
-        ctx.fillRect(dogX, 380, 60, 40);
-        //ctx.fillStyle = "black";
-        //ctx.font="30ps Arial";
-        //ctx.fillText("UK", dogX, 400);
+
+      ctx.fillStyle = "blue";
+      ctx.fillRect(dogX, 380, 60, 40);
         
-        ctx.font='10px Arial'
-        ctx.strokeStyle='white';
-        ctx.lineWidth=3;
-        ctx.strokeText('UK',targetCountryNamePosX,440);
-        ctx.fillStyle='black';
-        ctx.fillText("UK", targetCountryNamePosX,440);
+      ctx.font='10px Arial'
+      ctx.strokeStyle='white';
+      ctx.lineWidth=3;
+      ctx.strokeText('UK',targetCountryNamePosX,440);
+      ctx.fillStyle='black';
+      ctx.fillText("UK", targetCountryNamePosX,440);
         
-        
-        
-        
-        // ctx.drawImage(dogtext,dogX,400,100,80);
       dogX+=changeX; 
-     
-     
     }
     
     document.onkeydown=keyPressed;
@@ -101,8 +83,6 @@
       if(k==37){changeX=-4;}
       if(k==39){changeX=4 ;}
     }
-    
-
     
     function checkForHits(n){
       if((Math.abs(400-y[0] )<60)&&
