@@ -18,12 +18,8 @@
     var y=[0,0,0];
     var speed=[2,1,3];
     var targetCountryName='UK'
-    
     var targetCountryNameLength = targetCountryName.length;
-    
     console.log("length", targetCountryNameLength)
-    
-
     var centreX = gameCanvas.width / 2;
     var rectWidth = 60;
     var rectX = centreX - rectWidth / 2;
@@ -35,63 +31,13 @@
     //var life=10
     
 
-    
-    
     var gameTimer=setInterval(mainLoop,20);
+    
     function mainLoop() {
-
-      ctx.clearRect(0,0,640,480);
-      ctx.font='30px Arial'
- ctx.fillStyle = "black";
-      ctx.fillText("Score: "+score,10,30);
-      
-      for (var n=0; n<3; n++){
-        if (n==0){
-          ctx.drawImage(donut,x[0],y[0],100,80);
-        } else if (n==1){
-          ctx.drawImage(france,x[1],y[1],100,80);
-        } else {
-          ctx.drawImage(canada,x[2],y[2],100,80);
-        }
-        y[n]=y[n]+speed[n];
-        checkForHits(n);
-        //checkForHits1(n);
-        //checkForHits2(n);
-        if(y[n]>480){
-          y[n]=-80; x[n]=Math.random()*600;
-        }
-      }
-      if (dogX > 640){
-        dogX=-80;
-      }
-      if (dogX < -80){
-        dogX=640
-      }
-     // console.log('dogX',dogX)
-     // console.log('changeX',changeX)
-      
-      
-         
-        ctx.fillStyle = "blue";
-        ctx.fillRect(dogX, 380, 60, 40);
-        //ctx.fillStyle = "black";
-        //ctx.font="30ps Arial";
-        //ctx.fillText("UK", dogX, 400);
-        
-        ctx.font='10px Arial'
-        ctx.strokeStyle='white';
-        ctx.lineWidth=3;
-        ctx.strokeText('UK',targetCountryNamePosX,440);
-        ctx.fillStyle='black';
-        ctx.fillText("UK", targetCountryNamePosX,440);
-        
-        
-        
-        
-        // ctx.drawImage(dogtext,dogX,400,100,80);
-      dogX+=changeX; 
-     
-     
+      scoreAndErasing();
+      updateCoordinatesAndDrawFlags();
+      rectOffScreen();
+      drawTextAndRect();
     }
     
     document.onkeydown=keyPressed;
@@ -120,6 +66,54 @@
           score-=1
         y[n]=-80; x[n]=Math.random()*600;
       }
+    }
+    function scoreAndErasing(){
+      ctx.clearRect(0, 0, 640, 480);
+      ctx.font = '30px Arial'
+      ctx.fillStyle = "black";
+      ctx.fillText("Score: " + score, 10, 30);
+    }
+    function updateCoordinatesAndDrawFlags(){
+      for (var n=0; n<3; n++){
+        if (n==0){
+          ctx.drawImage(donut,x[0],y[0],100,80);
+        } else if (n==1){
+          ctx.drawImage(france,x[1],y[1],100,80);
+        } else {
+          ctx.drawImage(canada,x[2],y[2],100,80);
+        }
+        y[n]=y[n]+speed[n];
+        checkForHits(n);
+        //checkForHits1(n);
+        //checkForHits2(n);
+        if(y[n]>480){
+          y[n]=-80; x[n]=Math.random()*600;
+        }
+      }
+    }
+    function rectOffScreen(){
+      if (dogX > 640) {
+  dogX = -80;
+}
+if (dogX < -80) {
+  dogX = 640
+}
+    }
+    function drawTextAndRect(){
+              ctx.fillStyle = "blue";
+        ctx.fillRect(dogX, 380, 60, 40);
+        //ctx.fillStyle = "black";
+        //ctx.font="30ps Arial";
+        //ctx.fillText("UK", dogX, 400);
+
+        ctx.font = '10px Arial'
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 3;
+        ctx.strokeText('UK', targetCountryNamePosX, 440);
+        ctx.fillStyle = 'black';
+        ctx.fillText("UK", targetCountryNamePosX, 440);
+
+        dogX += changeX;
     }
     
     setTimeout(gameOver,60000);
